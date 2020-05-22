@@ -1,4 +1,4 @@
-const width = 960
+const width = 980
 const height = 700
 
 const svg = d3.select('#root').append('svg')  
@@ -37,15 +37,20 @@ function go(data) {
     }
   })
 
+  const radius = d3.scaleSqrt()
+    .domain([0, d3.max(points, d => d.properties.Deaths)])
+    .range([5, 10])
+
   svg.selectAll('circle')
     .data(points)
   .enter().append('circle')
     .attr('cx', d => path.centroid(d)[0])
     .attr('cy', d => path.centroid(d)[1])
-    .attr('r', 2.5)
+    .attr('r', d => radius(d.properties.Deaths))
     .style('fill', 'red')
     .style('opacity', 0.5)
     .on('mouseover', mouseover)
+    .on('mouseout', mouseout)
   
 }
 
@@ -53,6 +58,12 @@ const tooltip = d3.select('#tooltip').append('div')
 function mouseover(d) {
   tooltip
     .style('display', 'inline')
-    .html(`county: ${d.properties.region}`)
+    .html(`region (or county if US): ${d.properties.region} <br>
+          hi`)
     console.log(d.properties.region)
 }
+
+// function mouseout() {
+//   tooltip
+//     .style('display', 'none')
+// }
