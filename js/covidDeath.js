@@ -1,5 +1,5 @@
 const width = 960
-const height = 500
+const height = 700
 
 const svg = d3.select('#root').append('svg')  
   .attr('width', width)
@@ -7,15 +7,17 @@ const svg = d3.select('#root').append('svg')
   .append('g')
 
 const proj = d3.geoMercator()
-  .scale(width / 2 / Math.PI)
-  .translate([width / 2, height / 2])
-  .rotate([width/2, 0, 0]) 
+  .scale(155)
+  .center([0,40]) 
+  .translate([width/2,height/2])
 
 const path = d3.geoPath(proj)
 
 d3.csv("/data/covid19-5_20.csv", d => {
   return {
     ...d,
+    county: d.Admin2,
+    region: d.Combined_Key,
     lat : +d.Lat,
     lng: +d.Long_,
   };
@@ -29,7 +31,7 @@ function go(data) {
       type: 'Feature',
       geometry: {
         type: 'Point',
-        coordinates: [+d.Lat, +d.Long_]
+        coordinates: [d.lng, d.lat]
       },
       properties: d
     }
@@ -43,5 +45,14 @@ function go(data) {
     .attr('r', 2.5)
     .style('fill', 'red')
     .style('opacity', 0.5)
+    .on('mouseover', mouseover)
   
+}
+
+const tooltip = d3.select('#tooltip').append('div') 
+function mouseover(d) {
+  tooltip
+    .style('display', 'inline')
+    .html(`county: ${d.properties.region}`)
+    console.log(d.properties.region)
 }

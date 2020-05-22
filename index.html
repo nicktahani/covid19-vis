@@ -5,15 +5,26 @@
   <title>global covid-19 deaths</title>
   <style>
     body, #root {
+      font-family: 'Helvetica', sans-serif;
+      color: #fff;
+      background-color: #000;
       width: 100%;
       height: 100%;
       margin: 0;
       padding: 0;
     }
+
+    #title {
+      font-size: 3em;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
   </style>
 
 </head>
 <body>
+  <div id='title'>global covid-19 cases by region</div>
+  <div id='tooltip'></div>
   <div id='root'></div>
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <script src="js/covidDeath.js"></script>
