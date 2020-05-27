@@ -59,7 +59,7 @@ function mouseover(d) {
   tooltip
     .style('display', 'inline')
     .html(`region (or county if US): ${d.properties.region} <br>
-          hi`)
+          deaths: ${d.properties.Deaths}`) //check other attributes
     console.log(d.properties.region)
 }
 
