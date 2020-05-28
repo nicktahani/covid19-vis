@@ -9,9 +9,12 @@ const svg = d3.select('#root').append('svg')
 const proj = d3.geoMercator()
   .scale(155)
   .center([0,40]) 
-  .translate([width/2,height/2])
+  .translate([width/2,height/3])
 
 const path = d3.geoPath(proj)
+
+const tooltip = d3.select('body').append('div')
+  .attr('class', 'tooltip')
 
 d3.csv("/data/covid19-5_20.csv", d => {
   return {
@@ -54,13 +57,16 @@ function go(data) {
   
 }
 
-const tooltip = d3.select('#tooltip').append('div') 
 function mouseover(d) {
+  //TODO: styling for tooltips
   tooltip
+    .style('position', 'absolute')
+    .style('left', `${d3.event.pageX + 10}px`)
+    .style('top', `${d3.event.pageY + 20}px`) 
     .style('display', 'inline')
     .html(`region (or county if US): ${d.properties.region} <br>
-          deaths: ${d.properties.Deaths}`) //check other attributes
-    console.log(d.properties.region)
+          deaths: ${d.properties.Deaths}`) //check data for other attributes to display
+    // console.log(d.properties.region)
 }
 
 // function mouseout() {
