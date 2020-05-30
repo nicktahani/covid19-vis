@@ -64,6 +64,9 @@ function mouseover(d) {
     .style('left', `${d3.event.pageX + 10}px`)
     .style('top', `${d3.event.pageY + 20}px`) 
     .style('display', 'inline')
+    .style('background-color', '#fff')
+    .style('color', '#000')
+    .style('font-size', '0.75em')
     .html(`region (or county if US): ${d.properties.region} <br>
           deaths: ${d.properties.Deaths}`) //check data for other attributes to display
     // console.log(d.properties.region)
