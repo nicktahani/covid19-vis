@@ -8,8 +8,8 @@ const svg = d3.select('#root').append('svg')
 
 const proj = d3.geoMercator()
   .scale(155)
-  .center([0,40]) 
-  .translate([width/2,height/3])
+  .center([0, 40]) 
+  .translate([width / 2,height / 3])
 
 const path = d3.geoPath(proj)
 
@@ -23,6 +23,8 @@ d3.csv("/data/covid19-5_20.csv", d => {
     region: d.Combined_Key,
     lat : +d.Lat,
     lng: +d.Long_,
+    deaths: d.Deaths
+
   };
 })
   .then(go)
@@ -41,7 +43,7 @@ function go(data) {
   })
 
   const radius = d3.scaleSqrt()
-    .domain([0, d3.max(points, d => d.properties.Deaths)])
+    .domain([0, d3.max(points, d => d.properties.deaths)])
     .range([5, 10])
 
   svg.selectAll('circle')
@@ -49,7 +51,7 @@ function go(data) {
   .enter().append('circle')
     .attr('cx', d => path.centroid(d)[0])
     .attr('cy', d => path.centroid(d)[1])
-    .attr('r', d => radius(d.properties.Deaths))
+    .attr('r', d => radius(d.properties.deaths))
     .style('fill', 'red')
     .style('opacity', 0.5)
     .on('mouseover', mouseover)
@@ -58,21 +60,17 @@ function go(data) {
 }
 
 function mouseover(d) {
-  //TODO: styling for tooltips
   tooltip
     .style('position', 'absolute')
     .style('left', `${d3.event.pageX + 10}px`)
     .style('top', `${d3.event.pageY + 20}px`) 
     .style('display', 'inline')
-    .style('background-color', '#fff')
-    .style('color', '#000')
-    .style('font-size', '0.75em')
     .html(`region (or county if US): ${d.properties.region} <br>
-          deaths: ${d.properties.Deaths}`) //check data for other attributes to display
-    // console.log(d.properties.region)
+          deaths: ${d.properties.deaths}`) //check data for other attributes to display
+
 }
 
-// function mouseout() {
-//   tooltip
-//     .style('display', 'none')
-// }
+function mouseout() {
+  tooltip
+    .style('display', 'none')
+}
