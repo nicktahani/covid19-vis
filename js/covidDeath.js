@@ -13,8 +13,9 @@ const proj = d3.geoMercator()
 
 const path = d3.geoPath(proj)
 
-const tooltip = d3.select('body').append('div')
+const tooltip = d3.select('#root').append('div')
   .attr('class', 'tooltip')
+  .style('display', 'none')
 
 d3.csv("/data/covid19-5_20.csv", d => {
   return {
@@ -23,7 +24,8 @@ d3.csv("/data/covid19-5_20.csv", d => {
     region: d.Combined_Key,
     lat : +d.Lat,
     lng: +d.Long_,
-    deaths: d.Deaths
+    deaths: d.Deaths,
+    confirmed: d.Confirmed
 
   };
 })
@@ -31,6 +33,7 @@ d3.csv("/data/covid19-5_20.csv", d => {
   .catch(e => console.error(e))
 
 function go(data) {
+  console.log(data)
   const points = data.map(d => {
     return {
       type: 'Feature',
@@ -65,8 +68,7 @@ function mouseover(d) {
     .style('left', `${d3.event.pageX + 10}px`)
     .style('top', `${d3.event.pageY + 20}px`) 
     .style('display', 'inline')
-    .html(`region (or county if US): ${d.properties.region} <br>
-          deaths: ${d.properties.deaths}`) //check data for other attributes to display
+    .html(`<b>${d.properties.region}</b> <br> Confirmed: ${d.properties.confirmed} <br> Deaths: ${d.properties.deaths}`) 
 
 }
 

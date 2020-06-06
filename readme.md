@@ -1,5 +1,7 @@
 # COVID-19 Cases by Region
 
+😷😷😷
+
 Last updated: 5/20 (in the process of gathering data in real-time)
 
 ## Credits
