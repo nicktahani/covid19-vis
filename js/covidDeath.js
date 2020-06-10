@@ -17,7 +17,7 @@ const tooltip = d3.select('#root').append('div')
   .attr('class', 'tooltip')
   .style('display', 'none')
 
-d3.csv("/data/covid19-5_20.csv", d => {
+d3.csv("/data/covid19-6_7.csv", d => {
   return {
     ...d,
     county: d.Admin2,

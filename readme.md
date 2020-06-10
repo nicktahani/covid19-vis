@@ -1,8 +1,10 @@
-# COVID-19 Cases by Region
+# COVID-19 Cases by Region😷🦠
 
-😷😷😷
+Check it out [here](https://observablehq.com/@nicktahani/global-covid-19-cases-by-region)!
 
-Last updated: 5/20 (in the process of gathering data in real-time)
+![](img/covid19-global.PNG)
+
+Last updated: 6/7 
 
 ## Credits
 
